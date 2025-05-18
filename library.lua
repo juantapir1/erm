@@ -63,7 +63,7 @@ local library = {
     open = false;
     opening = false;
     hasInit = false;
-    cheatname = startupArgs.cheatname or 'Zeltop';
+    cheatname = startupArgs.cheatname or 'Zeltopzz';
     gamename = startupArgs.gamename or 'Universal';
     fileext = startupArgs.fileext or '.txt';
 }
@@ -2393,6 +2393,7 @@ function library:init()
                             order = #self.options+1;
                             callback = function() end;
                             keycallback = function() end;
+                            indicatorValue = library.keyIndicator:AddValue({value = 'value', key = 'key', enabled = false});
                             noindicator = false;
                             invertindicator = false;
                             state = false;
@@ -3986,6 +3987,7 @@ function library:init()
                         order = #self.options+1;
                         callback = function() end;
                         keycallback = function() end;
+                        indicatorValue = library.keyIndicator:AddValue({value = 'value', key = 'key', enabled = false});
                         noindicator = false;
                         state = false;
                         nomouse = false;
@@ -4681,6 +4683,8 @@ function library:init()
             library.watermark:Update()
         end
     end)
+
+    self.keyIndicator = self.NewIndicator({title = 'Keybinds', pos = newUDim2(0,15,0,325), enabled = true});
     
     self.targetIndicator = self.NewIndicator({title = 'Target Info', pos = newUDim2(0,15,0,350), enabled = false});
     self.targetName = self.targetIndicator:AddValue({key = 'Name     :', value = 'nil'})
@@ -4739,7 +4743,7 @@ function library:CreateSettingsTab(menu)
         library:SetOpen(not library.open)
     end});
 
-    mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = false, callback = function()
+    mainSection:AddButton({text = 'Join Discord', flag = 'joindiscord', confirm = true, callback = function()
         local res = syn.request({
             Url = 'https://discord.gg/rkRW5VrbWu',
             Method = 'POST',
@@ -4758,11 +4762,11 @@ function library:CreateSettingsTab(menu)
         end
     end})
 
-    mainSection:AddButton({text = 'Rejoin Server', confirm = false, callback = function()
+    mainSection:AddButton({text = 'Rejoin Server', confirm = true, callback = function()
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId);
     end})
 
-    mainSection:AddButton({text = 'Rejoin Game', confirm = false, callback = function()
+    mainSection:AddButton({text = 'Rejoin Game', confirm = true, callback = function()
         game:GetService("TeleportService"):Teleport(game.PlaceId);
     end})
 
@@ -4786,7 +4790,6 @@ function library:CreateSettingsTab(menu)
     mainSection:AddSlider({text = 'Custom X', flag = 'watermark_x', suffix = '%', min = 0, max = 100, increment = .1, value = 6});
     mainSection:AddSlider({text = 'Custom Y', flag = 'watermark_y', suffix = '%', min = 0, max = 100, increment = .1, value = 1});
 
-    --[[ REMOVED KEY INDICATOR
     mainSection:AddToggle({text = 'Keybinds', flag = 'keybind_indicator', state = true, callback = function(bool)
         library.keyIndicator:SetEnabled(bool);
     end})
@@ -4796,7 +4799,6 @@ function library:CreateSettingsTab(menu)
     mainSection:AddSlider({text = 'Position Y', flag = 'keybind_indicator_y', min = 0, max = 100, increment = .1, value = 30, callback = function()
         library.keyIndicator:SetPosition(newUDim2(library.flags.keybind_indicator_x / 100, 0, library.flags.keybind_indicator_y / 100, 0));    
     end});
-    ]]--
 
 
 
