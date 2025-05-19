@@ -4645,6 +4645,10 @@ function MacLib:Window(Settings)
 				local inputPath = nil
 				local selectedConfig = nil
 
+				configSection:Header({
+					Text = "Config",
+				})
+
 				configSection:Input({
 					Name = "Config Name",
 					Placeholder = "Name",
@@ -4760,8 +4764,6 @@ function MacLib:Window(Settings)
 					local name = readfile(MacLib.Folder .. "/settings/autoload.txt")
 					autoloadLabel:UpdateName("Autoload config: " .. name)
 				end
-
-				return configSection
 			end
 
 			tabs[tabSwitcher] = {
