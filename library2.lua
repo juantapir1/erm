@@ -4760,6 +4760,8 @@ function MacLib:Window(Settings)
 					local name = readfile(MacLib.Folder .. "/settings/autoload.txt")
 					autoloadLabel:UpdateName("Autoload config: " .. name)
 				end
+
+				return configSection
 			end
 
 			tabs[tabSwitcher] = {
